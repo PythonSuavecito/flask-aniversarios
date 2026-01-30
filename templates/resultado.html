@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PDF Generado - Aniversarios</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>✅ PDF Generado Exitosamente</h1>
+            <p class="subtitle">Formato: {{ '4 Columnas - Letras Grandes' if formato == 'madrino' else '3 Columnas - Alternativo' }}</p>
+        </header>
+
+        <div class="success-content">
+            <div class="success-icon">
+                <span>📄</span>
+            </div>
+            
+            <div class="summary">
+                <h2>Resumen del Documento</h2>
+                <div class="summary-grid">
+                    <div class="summary-item">
+                        <span class="label">Total de Personas:</span>
+                        <span class="value">{{ total_personas }}</span>
+                    </div>
+                    <div class="summary-item">
+                        <span class="label">Mes:</span>
+                        <span class="value">{{ mes }}</span>
+                    </div>
+                    <div class="summary-item">
+                        <span class="label">Año:</span>
+                        <span class="value">{{ año }}</span>
+                    </div>
+                    <div class="summary-item">
+                        <span class="label">Formato:</span>
+                        <span class="value">
+                            {% if formato == 'madrino' %}
+                                4 Columnas
+                            {% else %}
+                                3 Columnas
+                            {% endif %}
+                        </span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="actions">
+                <a href="{{ url_for('descargar_pdf', mes=mes, año=año, formato=formato) }}" class="btn btn-primary btn-large">
+                    ⬇️ Descargar PDF ({{ nombre_archivo }})
+                </a>
+                <a href="{{ url_for('index') }}" class="btn btn-secondary">
+                    🔄 Generar Otro
+                </a>
+            </div>
+            
+            <div class="preview-info">
+                <h3>📋 Vista Previa del Formato Generado:</h3>
+                <div class="preview-grid">
+                    {% if formato == 'madrino' %}
+                    <div class="preview-col">
+                        <div class="preview-header">Columna 1</div>
+                        <div class="preview-item">5 AÑOS</div>
+                        <div class="preview-name">• Juan Pérez</div>
+                        <div class="preview-name">• Ana Martínez</div>
+                        <div class="preview-item">10 AÑOS</div>
+                        <div class="preview-name">• María García</div>
+                    </div>
+                    <div class="preview-col">
+                        <div class="preview-header">Columna 2</div>
+                        <div class="preview-item">15 AÑOS</div>
+                        <div class="preview-name">• Carlos López</div>
+                        <div class="preview-name">• Carmen Torres</div>
+                        <div class="preview-item">20 AÑOS</div>
+                        <div class="preview-name">• Luis Rodríguez</div>
+                    </div>
+                    <div class="preview-col">
+                        <div class="preview-header">Columna 3</div>
+                        <div class="preview-item">25 AÑOS</div>
+                        <div class="preview-name">• Pedro Sánchez</div>
+                        <div class="preview-item">30 AÑOS</div>
+                        <div class="preview-name">• Miguel Ruiz</div>
+                        <div class="preview-name">• Isabel Gómez</div>
+                    </div>
+                    <div class="preview-col">
+                        <div class="preview-header">Columna 4</div>
+                        <div class="preview-item">35 AÑOS</div>
+                        <div class="preview-name">• Francisco Díaz</div>
+                        <div class="preview-item">40 AÑOS</div>
+                        <div class="preview-name">• Teresa Romero</div>
+                        <div class="preview-name">• ... más</div>
+                    </div>
+                    {% else %}
+                    <div class="preview-col-wide">
+                        <div class="preview-header">Formato Alternativo (3 Columnas)</div>
+                        <div class="preview-content">
+                            <p>• Organización en 3 columnas para mejor distribución</p>
+                            <p>• Encabezado con fecha de generación</p>
+                            <p>• Pie de página con totales</p>
+                            <p>• Espaciado optimizado para lectura</p>
+                        </div>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+
+        <footer>
+            <p>© 2024 Generador de Aniversarios | PDF generado el {{ datetime.now().strftime('%d/%m/%Y %H:%M') }}</p>
+        </footer>
+    </div>
+</body>
+</html>
